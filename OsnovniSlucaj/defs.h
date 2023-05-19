@@ -17,6 +17,17 @@ typedef enum promena {
 	ULAZ = 1
 } PROMENA;
 
+typedef enum slucajazuriranja {
+	O_NAMA,
+	O_AZURIRANJU_SERIJSKE,
+	OSN_SLUCAJ_AZURIRANJA,
+	NEPOSTOJECA_KOLICINA,
+	NOV_PROIZVOD,
+	NEPOSTOJECI_PROIZVOD,
+	SVEOBUHVATNI_SLUCAJ
+
+} SLUCAJAZURIRANJA	;
+
 typedef struct transakcija {
 	unsigned Id;
 	PROMENA  Promena;

@@ -131,11 +131,13 @@
   <ItemGroup>
     <ClInclude Include="defs.h" />
     <ClInclude Include="files_utils.h" />
+    <ClInclude Include="help_utils.h" />
     <ClInclude Include="misc.h" />
     <ClInclude Include="use_cases.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="files_utils.c" />
+    <ClCompile Include="help_utils.c" />
     <ClCompile Include="main.c" />
     <ClCompile Include="misc.c" />
     <ClCompile Include="use_cases.c" />

@@ -59,6 +59,7 @@ SIGNAL inicijalizujFajoveZaDemo(int brojDemoa) {
     int mat = prepisiMaticnuDemo();
     int tr = prepisiTransakcionuDemo(brojDemoa);
     if (mat + tr == 2) return OK;
+    
     return ERR;
 }
 

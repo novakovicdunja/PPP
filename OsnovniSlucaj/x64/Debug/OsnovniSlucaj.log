@@ -1,2 +1,7 @@
-﻿  main.c
+﻿  files_utils.c
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(149,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(205,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(246,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  main.c
+  Generating Code...
   OsnovniSlucaj.vcxproj -> C:\Users\Dunja\source\repos\PPP8\ASD\x64\Debug\OsnovniSlucaj.exe

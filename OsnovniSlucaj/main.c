@@ -1,7 +1,8 @@
-#define _CRT_SECURE_NO_WARNINGS
+﻿#define _CRT_SECURE_NO_WARNINGS
 #include "files_utils.h"
 #include "misc.h"
 #include "use_cases.h"
+#include "help_utils.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -61,7 +62,9 @@ int main() {
     printf("%d\n", s);
     printf("************************\n");
     prikaziSveProizvode();*/
-    izmeniProizvod();
+    //izmeniProizvod();
+    ispisiPomoc(O_NAMA);
+    
     return 0;
 }
 
