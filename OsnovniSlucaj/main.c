@@ -49,6 +49,8 @@ int main() {
     //unistiPostojecuTransakcionuDatoteku();
     //inicijalizujFajoveZaDemo(1);
     //dodajNovuTransakciju();
+    //dodajNovuTransakciju();
+    //dodajNovuTransakciju();
     //kreirajNovuTransakcionuDatoteku();
     //prikaziSveTransakcije();
     //prikaziSveTransakcijeZaProizvod();
@@ -66,7 +68,7 @@ int main() {
     //izmeniProizvod();
     //ispisiPomoc(O_NAMA);
     //arhivirajMaticnu();
-    prikaziSveTransakcije();
+    //prikaziSveTransakcije();
     sumirajTransakcije();
     return 0;
 }

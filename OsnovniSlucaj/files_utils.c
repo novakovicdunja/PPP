@@ -380,14 +380,20 @@ SIGNAL sumirajTransakcije() {
 
     // alociramo niz u velicini datoteke
     TRANSAKCIJA* transakcije = (TRANSAKCIJA*)malloc(brLin * sizeof(TRANSAKCIJA));
+    PCVOR glava = NULL;
     fread(transakcije, sizeof(TRANSAKCIJA), brLin, datoteka);
     for (int i = 0; i < brLin; i++)
     {
         TRANSAKCIJA t = transakcije[i];
-        printf("%d\n", t.Id);
+        if (!postojiUListi(glava, t.Id)) {
+            ubaciNaPocetak(&glava, t);
+        }
+        else {
+            azurirajElementListe(&glava, t);
+        }
     }
     free(transakcije);
     fclose(datoteka);
-
+    prikaziListu(glava);
     return OK; //PROMENI
 }

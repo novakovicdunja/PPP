@@ -18,4 +18,8 @@ int prebrojElementeListe(PCVOR glava);
 
 void ubaciNaPocetak(PCVOR* glava, TRANSAKCIJA transakcija);
 
+void azurirajElementListe(PCVOR* glava, TRANSAKCIJA transakcija);
+
+void prikaziListu(PCVOR glava);
+
 #endif // !ADTS_H
