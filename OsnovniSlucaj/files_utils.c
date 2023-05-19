@@ -7,6 +7,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include <errno.h>
+#include "adts.h"
 
 
 
@@ -28,25 +29,25 @@ const char* vratiPutanjuTransakcioneDatotekeZaDemo(int brojDemoSlucaja) {
     return imeTransakcioneDatoteke;
 }
 
-const char* vratiImeDatoteke(TIPDATOTEKE tipDatoteke) {
+const char* vratiPutanjuDatoteke(TIPDATOTEKE tipDatoteke) {
     static char imeDatoteke[60];  // Buffer to store the concatenated string
     const char* datum = vratiDanasnjiDatum();
     switch (tipDatoteke)
     {
     case MATICNA:
-        sprintf(imeDatoteke, "%s%s%s", "mat_", datum, ".dat");
+        sprintf(imeDatoteke, "%s%s%s%s", oldFolder, "mat_", datum, ".dat");
         break;
-    case TRANSAKCIONA:
-        sprintf(imeDatoteke, "%s%s%s", "tran_", datum, ".dat");
-        break;
+    //case TRANSAKCIONA:
+    //    sprintf(imeDatoteke, "%s%s%s", "tran_", datum, ".dat");
+    //    break;
     case SUMARNA:
-        sprintf(imeDatoteke, "%s%s%s", "prom_", datum, ".txt");
+        sprintf(imeDatoteke, "%s%s%s%s", reportFolder, "prom_", datum, ".txt");
         break;
     case ERR_KOL:
-        sprintf(imeDatoteke, "%s%s%s", "err_kol_", datum, ".txt");
+        sprintf(imeDatoteke, "%s%s%s%s", errorFolder, "err_kol_", datum, ".txt");
         break;
     case ERR_PRO:
-        sprintf(imeDatoteke, "%s%s%s", "err_pro_", datum, ".txt");
+        sprintf(imeDatoteke, "%s%s%s%s", errorFolder, "err_pro_", datum, ".txt");
         break;
     default:
         break;
@@ -197,7 +198,7 @@ SIGNAL sortirajMaticnuDatoteku() {
     // sortiranje
     qsort(proizvodi, brLin, sizeof(PROIZVOD), uporediProizvode);
 
-    // Write the sorted proizvodi back to the file
+    // upisi proizvode u fajl
     datoteka = fopen(maticnaDatoteka, "wb");
     if (datoteka == NULL) {
         return ERR;
@@ -237,6 +238,12 @@ SIGNAL prikaziProizvod(unsigned int id) {
 int uporediProizvode(const void* a, const void* b) {
     const PROIZVOD* prA = (const PROIZVOD*)a;
     const PROIZVOD* prB = (const PROIZVOD*)b;
+    return prA->Id - prB->Id;
+}
+
+int uporediTransakcije(const void* a, const void* b) {
+    const TRANSAKCIJA* prA = (const TRANSAKCIJA*)a;
+    const TRANSAKCIJA* prB = (const TRANSAKCIJA*)b;
     return prA->Id - prB->Id;
 }
 
@@ -303,4 +310,84 @@ SIGNAL azurirajRedMaticna(PROIZVOD izmenjeniProizvod) {
         return s;
     }
     return unistiDatoteku(tempDatoteka);
+}
+
+SIGNAL arhivirajMaticnu() {
+    return prepisiDatoteku(maticnaDatoteka, vratiPutanjuDatoteke(MATICNA));
+}
+
+
+
+
+TRANSAKCIJA sumirajTransakcijeProizvoda(TRANSAKCIJA* transakcije, unsigned int id) {
+    TRANSAKCIJA transakcija;
+}
+
+SIGNAL sortirajTransakcionuDatoteku() {
+    FILE* datoteka = fopen(transakcionaDatoteka, "rb");
+    if (datoteka == NULL) {
+        return ERR;
+    }
+
+    // broj redova u datoteci
+    fseek(datoteka, 0, SEEK_END);
+    long datotekaVel = ftell(datoteka);
+    rewind(datoteka);
+    int brLin = datotekaVel / sizeof(TRANSAKCIJA);
+
+    // alociramo niz u velicini datoteke
+    TRANSAKCIJA* transakcije = (TRANSAKCIJA*)malloc(brLin * sizeof(TRANSAKCIJA));
+    fread(transakcije, sizeof(TRANSAKCIJA), brLin, datoteka);
+    fclose(datoteka);
+
+    // sortiranje
+    qsort(transakcije, brLin, sizeof(TRANSAKCIJA), uporediProizvode);
+
+    // upisi proizvode u fajl
+    datoteka = fopen(transakcionaDatoteka, "wb");
+    if (datoteka == NULL) {
+        return ERR;
+    }
+    int rezUpis = fwrite(transakcije, sizeof(TRANSAKCIJA), brLin, datoteka);
+    fclose(datoteka);
+    free(transakcije);
+    return rezUpis == brLin ? OK : ERR;
+}
+
+SIGNAL vratiJedinstveneTransakcija() {
+    FILE* datoteka = fopen(transakcionaDatoteka, "rb");
+    PCVOR glava = NULL;
+    TRANSAKCIJA transakcija;
+    while (fread(&transakcija, sizeof(TRANSAKCIJA), 1, datoteka) == 1) {
+        if (!postojiUListi(glava, transakcija.Id)) {
+            ubaciNaPocetak(&glava, transakcija);
+        }
+    }
+    fclose(datoteka);
+}
+
+SIGNAL sumirajTransakcije() {
+    FILE* datoteka = fopen(transakcionaDatoteka, "rb");
+    if (datoteka == NULL) {
+        return ERR;
+    }
+
+    // broj redova u datoteci
+    fseek(datoteka, 0, SEEK_END);
+    long datotekaVel = ftell(datoteka);
+    rewind(datoteka);
+    int brLin = datotekaVel / sizeof(TRANSAKCIJA);
+
+    // alociramo niz u velicini datoteke
+    TRANSAKCIJA* transakcije = (TRANSAKCIJA*)malloc(brLin * sizeof(TRANSAKCIJA));
+    fread(transakcije, sizeof(TRANSAKCIJA), brLin, datoteka);
+    for (int i = 0; i < brLin; i++)
+    {
+        TRANSAKCIJA t = transakcije[i];
+        printf("%d\n", t.Id);
+    }
+    free(transakcije);
+    fclose(datoteka);
+
+    return OK; //PROMENI
 }

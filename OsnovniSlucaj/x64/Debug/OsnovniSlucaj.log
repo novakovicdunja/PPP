@@ -1,7 +1,11 @@
 ﻿  files_utils.c
-C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(149,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(205,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(246,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-  main.c
-  Generating Code...
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(150,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(206,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(253,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(322,54): warning C4028: formal parameter 1 different from declaration
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(322,84): warning C4029: declared formal parameter list different from definition
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(323,17): warning C4101: 'transakcija': unreferenced local variable
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(351,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(324): warning C4716: 'sumirajTransakcijeProizvoda': must return a value
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(367): warning C4716: 'vratiJedinstveneTransakcija': must return a value
   OsnovniSlucaj.vcxproj -> C:\Users\Dunja\source\repos\PPP8\ASD\x64\Debug\OsnovniSlucaj.exe

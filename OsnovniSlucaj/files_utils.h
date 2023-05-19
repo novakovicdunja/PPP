@@ -18,7 +18,7 @@ extern const char* tempDatoteka;
 
 SIGNAL inicijalizujFajoveZaDemo(int);
 
-const char* vratiImeDatoteke(TIPDATOTEKE tipDatoteke);
+const char* vratiPutanjuDatoteke(TIPDATOTEKE tipDatoteke);
 
 const char* vratiPutanjuTransakcioneDatotekeZaDemo(int brojDemoSlucaja);
 
@@ -29,6 +29,7 @@ SIGNAL prepisiDatoteku(const char* izvornaPutanja, const char* ciljnaPutanja);
 SIGNAL spremiMaticnuTransakcionuDatotekuDemo(int brojDemoa);
 
 SIGNAL prepisiMaticnuDemo();
+
 SIGNAL prepisiTransakcionuDemo(int);
 
 SIGNAL kreirajNovuDatoteku(const char* putanja);
@@ -56,5 +57,11 @@ SIGNAL obrisiRedMaticna(unsigned int id);
 SIGNAL prikaziProizvod(unsigned int id);
 
 SIGNAL azurirajRedMaticna(PROIZVOD izmenjeniProizvod);
+
+SIGNAL arhivirajMaticnu();
+
+TRANSAKCIJA sumirajTransakcijeProizvoda(unsigned int id);
+
+SIGNAL sumirajTransakcije();
 
 #endif

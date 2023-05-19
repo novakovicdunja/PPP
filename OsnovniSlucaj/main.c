@@ -3,6 +3,7 @@
 #include "misc.h"
 #include "use_cases.h"
 #include "help_utils.h"
+#include "adts.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -63,8 +64,10 @@ int main() {
     printf("************************\n");
     prikaziSveProizvode();*/
     //izmeniProizvod();
-    ispisiPomoc(O_NAMA);
-    
+    //ispisiPomoc(O_NAMA);
+    //arhivirajMaticnu();
+    prikaziSveTransakcije();
+    sumirajTransakcije();
     return 0;
 }
 
