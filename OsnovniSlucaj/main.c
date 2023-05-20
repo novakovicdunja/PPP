@@ -69,7 +69,13 @@ int main() {
     //ispisiPomoc(O_NAMA);
     //arhivirajMaticnu();
     //prikaziSveTransakcije();
-    sumirajTransakcije();
+    //sumirajTransakcije();
+    //procitajDatotekuPromena();
+    //prikaziSveProizvode();
+    //dodajNoviProizvod();
+    //izmeniProizvod();
+    SIGNAL s = azrurirajMaticnuDatoteku();
+    printf("%d\n", s);
     return 0;
 }
 

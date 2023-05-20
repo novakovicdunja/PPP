@@ -67,3 +67,16 @@ void prikaziListu(PCVOR glava) {
         tekuci = tekuci->sledeci;
     }
 }
+
+void ocistiListu(PCVOR glava)
+{
+    PCVOR pom;
+    while (glava != NULL)
+    {
+        pom = glava;
+        glava = glava->sledeci;
+        free(pom);
+    }
+
+}
+

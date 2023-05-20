@@ -22,4 +22,6 @@ void azurirajElementListe(PCVOR* glava, TRANSAKCIJA transakcija);
 
 void prikaziListu(PCVOR glava);
 
+void ocistiListu(PCVOR glava);
+
 #endif // !ADTS_H

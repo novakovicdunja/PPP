@@ -36,8 +36,8 @@ typedef struct transakcija {
 
 typedef enum tipDatoteke {
 	MATICNA,
-	TRANSAKCIONA,
-	SUMARNA,
+	SUMTRANS,
+	IZVPROMENA,
 	ERR_KOL,
 	ERR_PRO
 } TIPDATOTEKE;

@@ -4,6 +4,7 @@
 #define FILES_UTILS_H
 
 #include "defs.h"
+#include "adts.h"
 #include <stdbool.h>
 
 
@@ -60,8 +61,16 @@ SIGNAL azurirajRedMaticna(PROIZVOD izmenjeniProizvod);
 
 SIGNAL arhivirajMaticnu();
 
-TRANSAKCIJA sumirajTransakcijeProizvoda(unsigned int id);
-
 SIGNAL sumirajTransakcije();
+
+SIGNAL napuniDatotekuPromena(PCVOR glava);
+
+SIGNAL sortirajDatotekuPromena();
+
+void procitajDatotekuPromena();
+
+SIGNAL azurirajMaticnuPremaTransakcionoj();
+
+
 
 #endif

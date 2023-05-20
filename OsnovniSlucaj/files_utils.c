@@ -37,10 +37,10 @@ const char* vratiPutanjuDatoteke(TIPDATOTEKE tipDatoteke) {
     case MATICNA:
         sprintf(imeDatoteke, "%s%s%s%s", oldFolder, "mat_", datum, ".dat");
         break;
-    //case TRANSAKCIONA:
-    //    sprintf(imeDatoteke, "%s%s%s", "tran_", datum, ".dat");
-    //    break;
-    case SUMARNA:
+    case SUMTRANS:
+        sprintf(imeDatoteke, "%s%s%s%s", oldFolder, "tran_", datum, ".dat");
+        break;
+    case IZVPROMENA:
         sprintf(imeDatoteke, "%s%s%s%s", reportFolder, "prom_", datum, ".txt");
         break;
     case ERR_KOL:
@@ -318,13 +318,8 @@ SIGNAL arhivirajMaticnu() {
 
 
 
-
-TRANSAKCIJA sumirajTransakcijeProizvoda(TRANSAKCIJA* transakcije, unsigned int id) {
-    TRANSAKCIJA transakcija;
-}
-
-SIGNAL sortirajTransakcionuDatoteku() {
-    FILE* datoteka = fopen(transakcionaDatoteka, "rb");
+SIGNAL sortirajDatotekuPromena() {
+    FILE* datoteka = fopen(vratiPutanjuDatoteke(SUMTRANS), "rb");
     if (datoteka == NULL) {
         return ERR;
     }
@@ -341,10 +336,10 @@ SIGNAL sortirajTransakcionuDatoteku() {
     fclose(datoteka);
 
     // sortiranje
-    qsort(transakcije, brLin, sizeof(TRANSAKCIJA), uporediProizvode);
+    qsort(transakcije, brLin, sizeof(TRANSAKCIJA), uporediTransakcije);
 
     // upisi proizvode u fajl
-    datoteka = fopen(transakcionaDatoteka, "wb");
+    datoteka = fopen(vratiPutanjuDatoteke(SUMTRANS), "wb");
     if (datoteka == NULL) {
         return ERR;
     }
@@ -371,7 +366,6 @@ SIGNAL sumirajTransakcije() {
     if (datoteka == NULL) {
         return ERR;
     }
-
     // broj redova u datoteci
     fseek(datoteka, 0, SEEK_END);
     long datotekaVel = ftell(datoteka);
@@ -394,6 +388,103 @@ SIGNAL sumirajTransakcije() {
     }
     free(transakcije);
     fclose(datoteka);
-    prikaziListu(glava);
-    return OK; //PROMENI
+
+    SIGNAL s = kreirajNovuDatoteku(vratiPutanjuDatoteke(SUMTRANS));
+    if (s != OK) return s;
+    s = napuniDatotekuPromena(glava);
+    if (s != OK) return s;
+    s = sortirajDatotekuPromena();
+    if (s != OK) return s;
+    ocistiListu(glava);
+    return OK;
+}
+
+SIGNAL napuniDatotekuPromena(PCVOR glava) {
+    FILE* datoteka = fopen(vratiPutanjuDatoteke(SUMTRANS), "wb");
+    TRANSAKCIJA transakcija;
+    if (datoteka == NULL) {
+        return ERR;
+    }
+    while (glava != NULL) {
+        transakcija = glava->Transakcija;
+        if (fwrite(&transakcija, sizeof(TRANSAKCIJA), 1, datoteka) < 1) return ERR;
+        glava = glava->sledeci;
+    }
+    fclose(datoteka);
+    return OK;
+}
+
+
+void procitajDatotekuPromena() {
+    FILE* datoteka = fopen(vratiPutanjuDatoteke(SUMTRANS), "rb");
+    TRANSAKCIJA transakcija;
+    if (datoteka == NULL) {
+        return;
+    }
+    while (fread(&transakcija, sizeof(TRANSAKCIJA), 1, datoteka) == 1) {
+        printf("%-8d%-12s%-8d\n", transakcija.Id, transakcija.Promena == 1 ? "ULAZ" : "IZLAZ", transakcija.Kolicina);
+    }
+    fclose(datoteka);
+}
+
+SIGNAL azurirajMaticnuPremaTransakcionoj() {
+    FILE* maticna = fopen(maticnaDatoteka, "rb");
+    if (maticna == NULL) {
+        return ERR;
+    }
+
+    // broj redova u datoteci
+    fseek(maticna, 0, SEEK_END);
+    long datotekaVel = ftell(maticna);
+    rewind(maticna);
+    int brLinMat = datotekaVel / sizeof(PROIZVOD);
+
+    // alociramo niz u velicini datoteke
+    PROIZVOD* proizvodi = (PROIZVOD*)malloc(brLinMat * sizeof(PROIZVOD));
+    fread(proizvodi, sizeof(PROIZVOD), brLinMat, maticna);
+    fclose(maticna);
+
+
+    FILE* sumTrans = fopen(vratiPutanjuDatoteke(SUMTRANS), "rb");
+    if (sumTrans == NULL) {
+        return ERR;
+    }
+
+    // broj redova u datoteci
+    fseek(sumTrans, 0, SEEK_END);
+    datotekaVel = ftell(sumTrans);
+    rewind(sumTrans);
+    int brLinSumTrans = datotekaVel / sizeof(TRANSAKCIJA);
+
+    // alociramo niz u velicini datoteke
+    TRANSAKCIJA* transakcije = (TRANSAKCIJA*)malloc(brLinSumTrans * sizeof(TRANSAKCIJA));
+    fread(transakcije, sizeof(TRANSAKCIJA), brLinSumTrans, sumTrans);
+    fclose(sumTrans);
+
+    FILE* izvPromena = fopen(vratiPutanjuDatoteke(IZVPROMENA), "wb");
+    if (izvPromena == NULL) return ERR;
+    for (int i = 0; i < brLinMat; i++)
+    {
+        PROIZVOD p = proizvodi[i];
+        for (int j = 0; j < brLinSumTrans; j++) {
+            TRANSAKCIJA t = transakcije[j];
+            if (p.Id == t.Id) {
+                unsigned int staraKolicina = p.Kolicina;
+                p.Kolicina += t.Promena * t.Kolicina;
+                fprintf(izvPromena, "%d\t%d\t%s\t%s\t%d\t%d\n", p.Id, staraKolicina, p.Naziv, t.Promena == ULAZ ? "+": "-", t.Kolicina, p.Kolicina);
+                break;
+            }
+        }
+    }
+
+    fclose(izvPromena);
+
+    //upis promena nazad u maticnu
+    maticna = fopen(maticnaDatoteka, "wb");
+    if (maticna == NULL) return ERR;
+    int rezUpis = fwrite(proizvodi, sizeof(PROIZVOD), brLinMat, maticna);
+    fclose(maticna);
+    free(transakcije);
+    free(proizvodi);
+    return rezUpis == brLinMat ? OK : ERR;
 }

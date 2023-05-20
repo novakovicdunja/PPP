@@ -208,3 +208,15 @@ SIGNAL izmeniProizvod() {
     proizvod.Kolicina = konverzijaStr2Uint(kolicina);
     return azurirajRedMaticna(proizvod);
 }
+
+SIGNAL azrurirajMaticnuDatoteku() {
+    if (!postojiDatoteka(maticnaDatoteka) || !postojiDatoteka(transakcionaDatoteka)) {
+        return ERR;
+    }
+    SIGNAL s = sumirajTransakcije();
+    if (s != OK) return s;
+    s = azurirajMaticnuPremaTransakcionoj();
+    if (s != OK) return s;
+    s = arhivirajMaticnu();
+    return s;
+}
