@@ -1,6 +1,5 @@
 #define _CRT_SECURE_NO_WARNINGS
 
-#define MAX_BUFFER_SIZE 1024
 #include "help_utils.h"
 #include "defs.h"
 #include <stdio.h>
@@ -14,26 +13,6 @@ const char* nepostojecaKolicinaPutanja = "../HELP/nepostojeca_kolicina.txt";
 const char* novProizvodPutanja = "../HELP/nov_proizvod.txt";
 const char* nepostojeciProizvodPutanja = "../HELP/nepostojeci_proizvod.txt";
 const char* sveobuhvatniSlucajPutanja = "../HELP/sveobuhvatni_slucaj.txt";
-
-SIGNAL ispisiDatoteku(const char* putanja)
-{
-    FILE* datoteka = fopen(putanja, "r");
-    if (datoteka == NULL) {
-        return ERR;
-    }
-
-    char bafer[MAX_BUFFER_SIZE];
-    size_t procitaniPodaci;
-
-    while ((procitaniPodaci = fread(bafer, 1, sizeof(bafer), datoteka)) > 0) {
-        fwrite(bafer, 1, procitaniPodaci, stdout);
-    }
-
-    fclose(datoteka);
-
-    return OK;
-
-}
 
 SIGNAL ispisiPomoc(SLUCAJAZURIRANJA sa)
 {

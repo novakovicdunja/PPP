@@ -5,6 +5,7 @@
 
 #define MAXNLENGTH 9
 #define MAXNAMELENGTH 15
+#define MAX_BUFFER_SIZE 1024
 
 typedef struct proizvod {
 	unsigned Id;

@@ -64,6 +64,24 @@ SIGNAL inicijalizujFajoveZaDemo(int brojDemoa) {
     return ERR;
 }
 
+SIGNAL ispisiDatoteku(const char* putanja)
+{
+    FILE* datoteka = fopen(putanja, "r");
+    if (datoteka == NULL) {
+        return ERR;
+    }
+
+    char bafer[MAX_BUFFER_SIZE];
+    size_t procitaniPodaci;
+
+    while ((procitaniPodaci = fread(bafer, 1, sizeof(bafer), datoteka)) > 0) {
+        fwrite(bafer, 1, procitaniPodaci, stdout);
+    }
+
+    fclose(datoteka);
+    return OK;
+}
+
 
 SIGNAL prepisiDatoteku(const char* izvornaPutanja, const char* ciljnaPutanja) {
     FILE* izvornaDatoteka = fopen(izvornaPutanja, "rb");
@@ -471,7 +489,7 @@ SIGNAL azurirajMaticnuPremaTransakcionoj() {
             if (p.Id == t.Id) {
                 unsigned int staraKolicina = p.Kolicina;
                 p.Kolicina += t.Promena * t.Kolicina;
-                fprintf(izvPromena, "%d\t%d\t%s\t%s\t%d\t%d\n", p.Id, staraKolicina, p.Naziv, t.Promena == ULAZ ? "+": "-", t.Kolicina, p.Kolicina);
+                fprintf(izvPromena, "%-9d\t%-9d\t%-15s\t%-5s\t%-9d\t%-9d\n", p.Id, staraKolicina, p.Naziv, t.Promena == ULAZ ? "+": "-", t.Kolicina, p.Kolicina);
                 break;
             }
         }
@@ -487,4 +505,14 @@ SIGNAL azurirajMaticnuPremaTransakcionoj() {
     free(transakcije);
     free(proizvodi);
     return rezUpis == brLinMat ? OK : ERR;
+}
+
+void prikaziIzvestajPromena() {
+    FILE* datoteka = fopen(vratiPutanjuDatoteke(IZVPROMENA), "r");
+    if (datoteka == NULL) return;
+    printf("- - - - - - - - - - - - - - - IZVESTAJ O PROMENAMA - - - - - - - - - - - - - - -\n");
+    printf("%-33s\t\t%-14s\t\t%-9s\n", "Proizvod", "Promena", "Nova");
+    printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-9s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "kolicina");
+    ispisiDatoteku(vratiPutanjuDatoteke(IZVPROMENA));
+    printf("- - - - - - - - - - - - - - -  KRAJ IZVESTAJA  - - - - - - - - - - - - - - - - -\n");
 }

@@ -14,8 +14,6 @@ extern const char* novProizvodPutanja;
 extern const char* nepostojeciProizvodPutanja;
 extern const char* sveobuhvatniSlucajPutanja;
 
-SIGNAL ispisiDatoteku(const char*);
-
 SIGNAL ispisiPomoc(SLUCAJAZURIRANJA);
 
 

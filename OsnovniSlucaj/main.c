@@ -74,8 +74,9 @@ int main() {
     //prikaziSveProizvode();
     //dodajNoviProizvod();
     //izmeniProizvod();
-    SIGNAL s = azrurirajMaticnuDatoteku();
-    printf("%d\n", s);
+    //SIGNAL s = azurirajMaticnuDatoteku();
+    //printf("%d\n", s);
+    //prikaziIzvestajPromena();
     return 0;
 }
 

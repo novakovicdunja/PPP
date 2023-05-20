@@ -209,7 +209,7 @@ SIGNAL izmeniProizvod() {
     return azurirajRedMaticna(proizvod);
 }
 
-SIGNAL azrurirajMaticnuDatoteku() {
+SIGNAL azurirajMaticnuDatoteku() {
     if (!postojiDatoteka(maticnaDatoteka) || !postojiDatoteka(transakcionaDatoteka)) {
         return ERR;
     }
@@ -218,5 +218,7 @@ SIGNAL azrurirajMaticnuDatoteku() {
     s = azurirajMaticnuPremaTransakcionoj();
     if (s != OK) return s;
     s = arhivirajMaticnu();
+    if (s != OK) return s;
+    prikaziIzvestajPromena();
     return s;
 }

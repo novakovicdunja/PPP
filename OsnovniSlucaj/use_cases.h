@@ -29,6 +29,6 @@ SIGNAL prikaziJedanProizvod();
 
 SIGNAL izmeniProizvod();
 
-SIGNAL azrurirajMaticnuDatoteku();
+SIGNAL azurirajMaticnuDatoteku();
 
 #endif // !USE_CASES_H
