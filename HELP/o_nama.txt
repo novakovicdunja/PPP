@@ -1,2 +1,2 @@
-Софтверски инжењер: <име ипрезиме>, <е-пошта> <остале информације>.
-Доменски инжењер  : Саша Д. Лазаревић, <е-пошта> <остале информације>.
+Softverski inzenjer: <ime iprezime>, <e-posta> <ostale informacije>.
+Domenski inzenjer: Sasa D. Lazarevic, <e-posta> <ostale informacije>.

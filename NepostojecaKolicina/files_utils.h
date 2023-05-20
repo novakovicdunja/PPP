@@ -25,6 +25,8 @@ const char* vratiPutanjuTransakcioneDatotekeZaDemo(int brojDemoSlucaja);
 
 bool postojiDatoteka(const char* putanja);
 
+SIGNAL ispisiDatoteku(const char* putanja);
+
 SIGNAL prepisiDatoteku(const char* izvornaPutanja, const char* ciljnaPutanja);
 
 SIGNAL spremiMaticnuTransakcionuDatotekuDemo(int brojDemoa);
@@ -70,6 +72,10 @@ SIGNAL sortirajDatotekuPromena();
 void procitajDatotekuPromena();
 
 SIGNAL azurirajMaticnuPremaTransakcionoj();
+
+void prikaziIzvestajPromena();
+
+void prikaziIzvestajGreskaKolicina();
 
 
 

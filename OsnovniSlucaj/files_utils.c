@@ -483,13 +483,11 @@ SIGNAL azurirajMaticnuPremaTransakcionoj() {
     if (izvPromena == NULL) return ERR;
     for (int i = 0; i < brLinMat; i++)
     {
-        PROIZVOD p = proizvodi[i];
         for (int j = 0; j < brLinSumTrans; j++) {
-            TRANSAKCIJA t = transakcije[j];
-            if (p.Id == t.Id) {
-                unsigned int staraKolicina = p.Kolicina;
-                p.Kolicina += t.Promena * t.Kolicina;
-                fprintf(izvPromena, "%-9d\t%-9d\t%-15s\t%-5s\t%-9d\t%-9d\n", p.Id, staraKolicina, p.Naziv, t.Promena == ULAZ ? "+": "-", t.Kolicina, p.Kolicina);
+            if (proizvodi[i].Id == transakcije[j].Id) {
+                unsigned int staraKolicina = proizvodi[i].Kolicina;
+                proizvodi[i].Kolicina += transakcije[j].Promena * transakcije[j].Kolicina;
+                fprintf(izvPromena, "%-9d\t%-9d\t%-15s\t%-5s\t%-9d\t%-9d\n", proizvodi[i].Id, staraKolicina, proizvodi[i].Naziv, transakcije[j].Promena == ULAZ ? "+" : "-", transakcije[j].Kolicina, proizvodi[i].Kolicina);
                 break;
             }
         }
@@ -510,9 +508,9 @@ SIGNAL azurirajMaticnuPremaTransakcionoj() {
 void prikaziIzvestajPromena() {
     FILE* datoteka = fopen(vratiPutanjuDatoteke(IZVPROMENA), "r");
     if (datoteka == NULL) return;
-    printf("- - - - - - - - - - - - - - - IZVESTAJ O PROMENAMA - - - - - - - - - - - - - - -\n");
-    printf("%-33s\t\t%-14s\t\t%-9s\n", "Proizvod", "Promena", "Nova");
-    printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-9s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "kolicina");
+    printf("\n- - - - - - - - - - - - - - - IZVESTAJ O PROMENAMA - - - - - - - - - - - - - - -\n");
+    printf("%-33s\t\t%-14s\t\t%-9s\n", "Proizvod", "Promena", "Greska");
+    printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina");
     ispisiDatoteku(vratiPutanjuDatoteke(IZVPROMENA));
-    printf("- - - - - - - - - - - - - - -  KRAJ IZVESTAJA  - - - - - - - - - - - - - - - - -\n");
+    printf("\n- - - - - - - - - - - - - - -  KRAJ IZVESTAJA  - - - - - - - - - - - - - - - - -\n");
 }

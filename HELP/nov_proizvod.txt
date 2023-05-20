@@ -1,0 +1,13 @@
+Azurira se proizvod koji postoji u maticnoj datoteci, ali se uzima u obzir da se moze desiti primanje novog proizvoda. Scenario slucaja:
+(a) D.1. + D.3. = I.1.
+(b) D.1. + D.4. = I.1.
+(v) D.2. + D.3. = I.1.
+
+Verbalni opis scenarija:
+(a) primljena kolicina proizvoda se dodaje na trenutno raspolozivu kolicinu, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku,
+(b) izdata kolicina proizvoda je manja od trenutno raspolozive kolicine, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku,
+(v) primljena je kolicina proizvoda koji se ne nalazi u maticnoj datoteci, pa se zato u maticnu datoteku dodaje nov proizvod sa primljenom kolicinom, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku.
+
+Ocigledno je da se ovaj slucaj moze opisati na sledeci nacin:
+Slucaj #1 + primanje kolicine nepostojeceg proizvoda
+=> dodaje se nov proizvod u maticnu datoteku.

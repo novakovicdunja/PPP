@@ -1,1 +1,66 @@
-ajshabhcbhjachjb
+Ovaj slucaj je najjednostavniji. Azurira se proizvod koji postoji u maticnoj datoteci, a kolicine su uvek odgovarajuce. Scenario slucaja:
+(a) D.1. + D.3. = I.1.
+(b) D.1. + D.4. = I.1.
+
+Verbalni opis scenarija:
+(a) primljena kolicina proizvoda se dodaje na trenutno raspolozivu kolicinu, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku,
+(b) izdata kolicina proizvoda je manja od trenutno raspolozive kolicine, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku.
+
+Ocigledno je da se ovaj slucaj moze opisati na sledeci nacin:
+Slucaj #1 + Slucaj #2
+
+
+maticna.dat:
+Id | Naziv | Kolicina
+====================
+20 | Pro_20 | 100
+30 | Pro_30 | 150
+40 | Pro_40 | 200
+50 | Pro_50 | 250
+60 | Pro_60 | 300
+70 | Pro_70 | 350
+80 | Pro_80 | 400
+90 | Pro_90 | 450
+
+
+transakciona.dat:
+Id | Promena | Kolicina
+=======================
+60 | ULAZ    | 150
+40 | ULAZ    | 80
+60 | ULAZ    | 50
+60 | IZLAZ   | 100
+40 | IZLAZ   | 50
+60 | IZLAZ   | 150
+60 | ULAZ    | 200
+40 | IZLAZ   | 80
+60 | ULAZ    | 20
+60 | IZLAZ   | 120
+40 | ULAZ    | 100
+
+
+sumarna datoteka tran_210429.dat:
+40 | ULAZ    | 50
+60 | IZLAZ   | 50
+70 | ULAZ    | 0
+
+
+nova maticna maticna.dat:
+Id | Proizvod | Kolicina
+=======================
+20 | Pro_20   | 100
+30 | Pro_30   | 150
+40 | Pro_40   | 250
+50 | Pro_50   | 250
+60 | Pro_60   | 250
+70 | Pro_70   | 350
+80 | Pro_80   | 400
+90 | Pro_90   | 450
+
+
+izvestaj o promenama prom_210429.rpt:
+Proizvod                                        Promena                 Nova
+Id		Kolicina        Naziv           Tip     Kolicina        kolicina
+10              300             Krpa            -       50              250
+20              300             Sok             +       110             410
+30              400             Zvake           -       10              390

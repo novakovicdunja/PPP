@@ -1,0 +1,41 @@
+Azurira se proizvod koji postoji u maticnoj datoteci, ali se uzima u obzir da se moze desiti izdavanje nepostojece kolicine. Scenario slucaja:
+(a) D.1. + D.3. = I.1.
+(b) D.1. + D.4. = I.1.
+(v) D.1. + D.4. = I.2.
+
+Verbalni opis scenarija:
+(a) primljena kolicina proizvoda se dodaje na trenutno raspolozivu kolicinu, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku,
+(b) izdata kolicina proizvoda je manja od trenutno raspolozive kolicine, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku,
+(v) izdata kolicina proizvoda nije manja od trenutno raspolozive kolicine (ili: izdata kolicina proizvoda je veca od trenutno raspolozive kolicine), sto je greska; zato se operacija odbija, a poruka o neuspesnom azuriranju i razlogu nastale greske se upisuje u odgovarajucu datoteku.
+
+Ocigledno je da se ovaj slucaj moze opisati na sledeci nacin:
+Slucaj #1 + izdavanje nepostojece kolicine proizvoda
+
+maticna.dat:
+Id | Naziv | Kolicina
+====================
+20 | Pro_20 | 100
+30 | Pro_30 | 150
+40 | Pro_40 | 200
+50 | Pro_50 | 250
+60 | Pro_60 | 300
+70 | Pro_70 | 350
+80 | Pro_80 | 400
+90 | Pro_90 | 450
+
+
+transakciona.dat:
+Id | Promena | Kolicina
+=======================
+80 | IZLAZ   | 50
+70 | IZLAZ   | 400
+80 | ULAZ    | 100
+90 | IZLAZ   | 800
+60 | IZLAZ   | 500
+20 | IZLAZ   | 500
+30 | ULAZ    | 100
+20 | IZLAZ   | 300
+60 | IZLAZ   | 300
+40 | ULAZ    | 150
+50 | IZLAZ   | 200
+

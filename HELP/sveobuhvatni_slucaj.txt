@@ -1,0 +1,13 @@
+Azurira se proizvod u maticnoj datoteci, ali se uzimaju u obzir svi moguci (prethodno razmatrani) slucajevi. Scenario sveobuhvatnog slucaja:
+(a) D.1. + D.3. = I.1.
+(b) D.1. + D.4. = I.1.
+(v) D.1. + D.4. = I.2.
+(g) D.2. + D.3. = I.1.
+(d) D.2. + D.4. = I.2.
+
+Verbalni opis scenarija:
+(a) primljena kolicina proizvoda se dodaje na trenutno raspolozivu kolicinu, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku,
+(b) izdata kolicina proizvoda je manja od trenutno raspolozive kolicine, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku,
+(v) izdata kolicina proizvoda nije manja od trenutno raspolozive kolicine (ili: izdata kolicina proizvoda je veca od trenutno raspolozive kolicine), sto je greska; zato se operacija odbija, a poruka o neuspesnom azuriranju i razlogu nastale greske se upisuje u odgovarajucu datoteku,
+(g) primljena je kolicina proizvoda koji se ne nalazi u maticnoj datoteci, pa se zato u maticnu datoteku dodaje nov proizvod sa primljenom kolicinom, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku,
+(d) izdaje se proizvod koji se ne nalazi u maticnoj datoteci, sto je greska; zato se operacija odbija, a poruka o neuspesnom azuriranju i razlogu nastale greske se upisuje u odgovarajucu datoteku.

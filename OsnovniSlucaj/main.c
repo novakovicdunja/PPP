@@ -66,7 +66,7 @@ int main() {
     printf("************************\n");
     prikaziSveProizvode();*/
     //izmeniProizvod();
-    //ispisiPomoc(O_NAMA);
+    //ispisiPomoc(OSN_SLUCAJ_AZURIRANJA);
     //arhivirajMaticnu();
     //prikaziSveTransakcije();
     //sumirajTransakcije();
@@ -74,9 +74,15 @@ int main() {
     //prikaziSveProizvode();
     //dodajNoviProizvod();
     //izmeniProizvod();
+    //dodajNovuTransakciju();
     //SIGNAL s = azurirajMaticnuDatoteku();
     //printf("%d\n", s);
     //prikaziIzvestajPromena();
+    //printf("leleeee\n");
+    //prikaziSveProizvode();
+    //kreirajNovuMaticnuDatoteku();
+    //kreirajNovuTransakcionuDatoteku();
+    prikaziSveProizvode();
     return 0;
 }
 

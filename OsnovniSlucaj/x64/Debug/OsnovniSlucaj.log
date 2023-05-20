@@ -3,6 +3,8 @@ C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(168,18): warnin
 C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(224,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(271,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(364,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(503,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(501,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  main.c
+  Generating Code...
 C:\Users\Dunja\source\repos\PPP8\ASD\OsnovniSlucaj\files_utils.c(380): warning C4716: 'vratiJedinstveneTransakcija': must return a value
   OsnovniSlucaj.vcxproj -> C:\Users\Dunja\source\repos\PPP8\ASD\x64\Debug\OsnovniSlucaj.exe

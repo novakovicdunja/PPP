@@ -218,5 +218,8 @@ SIGNAL azurirajMaticnuDatoteku() {
     s = azurirajMaticnuPremaTransakcionoj();
     if (s != OK) return s;
     s = arhivirajMaticnu();
+    if (s != OK) return s;
+    prikaziIzvestajPromena();
+    prikaziIzvestajGreskaKolicina();
     return s;
 }

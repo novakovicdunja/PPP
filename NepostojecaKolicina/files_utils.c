@@ -64,6 +64,24 @@ SIGNAL inicijalizujFajoveZaDemo(int brojDemoa) {
     return ERR;
 }
 
+SIGNAL ispisiDatoteku(const char* putanja)
+{
+    FILE* datoteka = fopen(putanja, "r");
+    if (datoteka == NULL) {
+        return ERR;
+    }
+
+    char bafer[MAX_BUFFER_SIZE];
+    size_t procitaniPodaci;
+
+    while ((procitaniPodaci = fread(bafer, 1, sizeof(bafer), datoteka)) > 0) {
+        fwrite(bafer, 1, procitaniPodaci, stdout);
+    }
+
+    fclose(datoteka);
+    return OK;
+}
+
 
 SIGNAL prepisiDatoteku(const char* izvornaPutanja, const char* ciljnaPutanja) {
     FILE* izvornaDatoteka = fopen(izvornaPutanja, "rb");
@@ -467,17 +485,15 @@ SIGNAL azurirajMaticnuPremaTransakcionoj() {
     if (izvPromena == NULL) return ERR;
     for (int i = 0; i < brLinMat; i++)
     {
-        PROIZVOD p = proizvodi[i];
         for (int j = 0; j < brLinSumTrans; j++) {
-            TRANSAKCIJA t = transakcije[j];
-            if (p.Id == t.Id) {
-                if (p.Kolicina + t.Promena * t.Kolicina < 0) {
-                    fprintf(izvPromena, "%d\t%d\t%s\t%s\t%d\t%s\n", p.Id, p.Kolicina, p.Naziv, t.Promena == ULAZ ? "+" : "-", t.Kolicina, "Nepostojeca kolicina proizvoda");
+            if (proizvodi[i].Id == transakcije[j].Id) {
+                if (transakcije[j].Promena = IZLAZ && proizvodi[i].Kolicina < transakcije[j].Kolicina) {
+                    fprintf(izvNepKol, "%-9d\t%-9d\t%-15s\t%-5s\t%-9d\t%-32s\n", proizvodi[i].Id, proizvodi[i].Kolicina, proizvodi[i].Naziv, "-", transakcije[j].Kolicina, "Nepostojeca kolicina proizvoda");
                 }
                 else {
-                    unsigned int staraKolicina = p.Kolicina;
-                    p.Kolicina += t.Promena * t.Kolicina;
-                    fprintf(izvPromena, "%d\t%d\t%s\t%s\t%d\t%d\n", p.Id, staraKolicina, p.Naziv, t.Promena == ULAZ ? "+" : "-", t.Kolicina, p.Kolicina);
+                    unsigned int staraKolicina = proizvodi[i].Kolicina;
+                    proizvodi[i].Kolicina += transakcije[j].Promena * transakcije[j].Kolicina;
+                    fprintf(izvPromena, "%-9d\t%-9d\t%-15s\t%-5s\t%-9d\t%-9d\n", proizvodi[i].Id, staraKolicina, proizvodi[i].Naziv, transakcije[j].Promena == ULAZ ? "+" : "-", transakcije[j].Kolicina, proizvodi[i].Kolicina);
                 }
                 break;
             }
@@ -495,4 +511,24 @@ SIGNAL azurirajMaticnuPremaTransakcionoj() {
     free(transakcije);
     free(proizvodi);
     return rezUpis == brLinMat ? OK : ERR;
+}
+
+void prikaziIzvestajPromena() {
+    FILE* datoteka = fopen(vratiPutanjuDatoteke(IZVPROMENA), "r");
+    if (datoteka == NULL) return;
+    printf("\n- - - - - - - - - - - - - - - IZVESTAJ O PROMENAMA - - - - - - - - - - - - - - -\n");
+    printf("%-33s\t\t%-14s\t\t%-9s\n", "Proizvod", "Promena", "Nova");
+    printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-9s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "kolicina");
+    ispisiDatoteku(vratiPutanjuDatoteke(IZVPROMENA));
+    printf("\n- - - - - - - - - - - - - - -  KRAJ IZVESTAJA  - - - - - - - - - - - - - - - - -\n");
+}
+
+void prikaziIzvestajGreskaKolicina() {
+    FILE* datoteka = fopen(vratiPutanjuDatoteke(ERR_KOL), "r");
+    if (datoteka == NULL) return;
+    printf("\n- - - - - - - - - - - - - - - - - IZVESTAJ O NEPOSTOJECOJ KOLICINI - - - - - - - - - - - - - - - - - -n");
+    printf("%-33s\t\t%-14s\t\t%-9s\n", "Proizvod", "Promena", "Nova");
+    printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-9s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "kolicina");
+    ispisiDatoteku(vratiPutanjuDatoteke(ERR_KOL));
+    printf("\n- - - - - - - - - - - - - - - - - - - - KRAJ IZVESTAJA - - - - - - - - - - - - - - - - - - - - - - - -\n");
 }
