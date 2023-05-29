@@ -514,8 +514,6 @@ SIGNAL azurirajMaticnuPremaTransakcionoj() {
 }
 
 void prikaziIzvestajPromena() {
-    FILE* datoteka = fopen(vratiPutanjuDatoteke(IZVPROMENA), "r");
-    if (datoteka == NULL) return;
     printf("\n- - - - - - - - - - - - - - - IZVESTAJ O PROMENAMA - - - - - - - - - - - - - - -\n");
     printf("%-33s\t\t%-14s\t\t%-9s\n", "Proizvod", "Promena", "Nova");
     printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-9s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "kolicina");
@@ -524,8 +522,6 @@ void prikaziIzvestajPromena() {
 }
 
 void prikaziIzvestajGreskaKolicina() {
-    FILE* datoteka = fopen(vratiPutanjuDatoteke(ERR_KOL), "r");
-    if (datoteka == NULL) return;
     printf("\n- - - - - - - - - - - - - - - - - IZVESTAJ O NEPOSTOJECOJ KOLICINI - - - - - - - - - - - - - - - - - -n");
     printf("%-33s\t\t%-14s\t\t%-9s\n", "Proizvod", "Promena", "Nova");
     printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-9s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "kolicina");

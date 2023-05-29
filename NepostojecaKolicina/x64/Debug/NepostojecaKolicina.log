@@ -1,8 +1,17 @@
-﻿  files_utils.c
+﻿  adts.c
+  files_utils.c
 C:\Users\Dunja\source\repos\PPP8\ASD\NepostojecaKolicina\files_utils.c(168,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Dunja\source\repos\PPP8\ASD\NepostojecaKolicina\files_utils.c(224,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Dunja\source\repos\PPP8\ASD\NepostojecaKolicina\files_utils.c(271,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Dunja\source\repos\PPP8\ASD\NepostojecaKolicina\files_utils.c(364,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
 C:\Users\Dunja\source\repos\PPP8\ASD\NepostojecaKolicina\files_utils.c(509,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+  help_utils.c
+C:\Users\Dunja\source\repos\PPP8\ASD\NepostojecaKolicina\help_utils.c(22,16): warning C4013: 'ispisiDatoteku' undefined; assuming extern returning int
+  main.c
+  misc.c
+C:\Users\Dunja\source\repos\PPP8\ASD\NepostojecaKolicina\misc.c(114,51): warning C4047: 'function': 'char **' differs in levels of indirection from 'char (*)[9]'
+C:\Users\Dunja\source\repos\PPP8\ASD\NepostojecaKolicina\misc.c(114,41): warning C4024: 'strtoul': different types for formal and actual parameter 2
+  use_cases.c
+  Generating Code...
 C:\Users\Dunja\source\repos\PPP8\ASD\NepostojecaKolicina\files_utils.c(380): warning C4716: 'vratiJedinstveneTransakcija': must return a value
   NepostojecaKolicina.vcxproj -> C:\Users\Dunja\source\repos\PPP8\ASD\x64\Debug\NepostojecaKolicina.exe

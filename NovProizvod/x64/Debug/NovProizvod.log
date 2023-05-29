@@ -1,0 +1,8 @@
+﻿  files_utils.c
+C:\Users\Dunja\source\repos\PPP8\ASD\NovProizvod\files_utils.c(170,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\NovProizvod\files_utils.c(226,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\NovProizvod\files_utils.c(273,18): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\NovProizvod\files_utils.c(366,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\NovProizvod\files_utils.c(512,19): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\Dunja\source\repos\PPP8\ASD\NovProizvod\files_utils.c(382): warning C4716: 'vratiJedinstveneTransakcija': must return a value
+  NovProizvod.vcxproj -> C:\Users\Dunja\source\repos\PPP8\ASD\x64\Debug\NovProizvod.exe

@@ -40,7 +40,8 @@ typedef enum tipDatoteke {
 	SUMTRANS,
 	IZVPROMENA,
 	ERR_KOL,
-	ERR_PRO
+	ERR_PRO,
+	NOV_PRO
 } TIPDATOTEKE;
 
 
