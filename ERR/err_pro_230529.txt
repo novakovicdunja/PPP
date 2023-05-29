@@ -1,0 +1,3 @@
+10       	X        	X              	-    	10       	Nepostojeci proizvod.  
+19       	X        	X              	-    	3000     	Nepostojeci proizvod.  
+25       	X        	X              	-    	25       	Nepostojeci proizvod.  

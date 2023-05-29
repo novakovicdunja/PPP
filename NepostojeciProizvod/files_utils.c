@@ -497,11 +497,12 @@ SIGNAL azurirajMaticnuPremaTransakcionoj() {
             }
         }
         if (!postoji) {
-
+            fprintf(izvNepPro, "%-9d\t%-9s\t%-15s\t%-5s\t%-9d\t%-24s\n", transakcije[j].Id, "X", "X", "-", transakcije[j].Kolicina, "Nepostojeci proizvod.");
         }
     }
 
     fclose(izvPromena);
+    fclose(izvNepPro);
 
     //upis promena nazad u maticnu
     maticna = fopen(maticnaDatoteka, "wb");
@@ -519,4 +520,12 @@ void prikaziIzvestajPromena() {
     printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-9s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "kolicina");
     ispisiDatoteku(vratiPutanjuDatoteke(IZVPROMENA));
     printf("\n- - - - - - - - - - - - - - -  KRAJ IZVESTAJA  - - - - - - - - - - - - - - - - -\n");
+}
+
+void prikaziIzvestajGreskaProizvod() {
+    printf("\n- - - - - - - - - - - - - - - - - IZVESTAJ O NEPOSTOJECEM PROIZVODU - - - - - - - - - - - - - - - - - -\n");
+    printf("%-33s\t\t%-14s\t\t%-23s\n", "Proizvod", "Promena", "Greska");
+    printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-23s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "");
+    ispisiDatoteku(vratiPutanjuDatoteke(ERR_PRO));
+    printf("\n- - - - - - - - - - - - - - - - - - - - KRAJ IZVESTAJA - - - - - - - - - - - - - - - - - - - - - - - -\n");
 }

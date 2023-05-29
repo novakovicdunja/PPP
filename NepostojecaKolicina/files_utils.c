@@ -522,9 +522,9 @@ void prikaziIzvestajPromena() {
 }
 
 void prikaziIzvestajGreskaKolicina() {
-    printf("\n- - - - - - - - - - - - - - - - - IZVESTAJ O NEPOSTOJECOJ KOLICINI - - - - - - - - - - - - - - - - - -n");
-    printf("%-33s\t\t%-14s\t\t%-9s\n", "Proizvod", "Promena", "Nova");
-    printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-9s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "kolicina");
+    printf("\n- - - - - - - - - - - - - - - - - IZVESTAJ O NEPOSTOJECOJ KOLICINI - - - - - - - - - - - - - - - - - \n");
+    printf("%-33s\t\t%-14s\t\t%-9s\n", "Proizvod", "Promena", "Greska");
+    printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-32s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "");
     ispisiDatoteku(vratiPutanjuDatoteke(ERR_KOL));
     printf("\n- - - - - - - - - - - - - - - - - - - - KRAJ IZVESTAJA - - - - - - - - - - - - - - - - - - - - - - - -\n");
 }

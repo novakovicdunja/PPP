@@ -75,6 +75,6 @@ SIGNAL azurirajMaticnuPremaTransakcionoj();
 
 void prikaziIzvestajPromena();
 
-
+void prikaziIzvestajGreskaProizvod();
 
 #endif

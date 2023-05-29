@@ -220,5 +220,6 @@ SIGNAL azurirajMaticnuDatoteku() {
     s = arhivirajMaticnu();
     if (s != OK) return s;
     prikaziIzvestajPromena();
+    prikaziIzvestajGreskaProizvod();
     return s;
 }

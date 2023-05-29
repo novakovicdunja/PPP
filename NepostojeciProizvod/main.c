@@ -81,8 +81,25 @@ int main() {
     //printf("leleeee\n");
     //prikaziSveProizvode();
     //kreirajNovuMaticnuDatoteku();
+    //kreirajNovuMaticnuDatoteku();
+    //int i = 0;
+    //while (i < 3) {
+    //    dodajNoviProizvod();
+    //    i++;
+    //}
     //kreirajNovuTransakcionuDatoteku();
-    prikaziSveProizvode();
+    //int i = 0;
+    //while (i < 4) {
+    //    dodajNovuTransakciju();
+    //    i++;
+    //}
+    //printf("************************\n");
+    //prikaziSveProizvode();
+    //printf("************************\n");
+    //azurirajMaticnuDatoteku();
+    //printf("************************\n");
+    //prikaziSveProizvode();
+    //prikaziIzvestajGreskaProizvod();
     return 0;
 }
 
