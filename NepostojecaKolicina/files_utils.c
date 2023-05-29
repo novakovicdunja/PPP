@@ -487,7 +487,7 @@ SIGNAL azurirajMaticnuPremaTransakcionoj() {
     {
         for (int j = 0; j < brLinSumTrans; j++) {
             if (proizvodi[i].Id == transakcije[j].Id) {
-                if (transakcije[j].Promena = IZLAZ && proizvodi[i].Kolicina < transakcije[j].Kolicina) {
+                if (transakcije[j].Promena == IZLAZ && proizvodi[i].Kolicina < transakcije[j].Kolicina) {
                     fprintf(izvNepKol, "%-9d\t%-9d\t%-15s\t%-5s\t%-9d\t%-32s\n", proizvodi[i].Id, proizvodi[i].Kolicina, proizvodi[i].Naziv, "-", transakcije[j].Kolicina, "Nepostojeca kolicina proizvoda");
                 }
                 else {

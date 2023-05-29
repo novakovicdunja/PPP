@@ -82,7 +82,13 @@ int main() {
     //prikaziSveProizvode();
     //kreirajNovuMaticnuDatoteku();
     //kreirajNovuTransakcionuDatoteku();
-    prikaziSveProizvode();
+    //kreirajNovuTransakcionuDatoteku();
+    //dodajNovuTransakciju();
+    //prikaziTransakcije();
+    //azurirajMaticnuDatoteku();
+    //prikaziProizvode();
+    azurirajMaticnuPremaTransakcionoj();
+    //prikaziProizvode();
     return 0;
 }
 

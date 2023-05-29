@@ -49,6 +49,9 @@ const char* vratiPutanjuDatoteke(TIPDATOTEKE tipDatoteke) {
     case ERR_PRO:
         sprintf(imeDatoteke, "%s%s%s%s", errorFolder, "err_pro_", datum, ".txt");
         break;
+    case NOV_PRO:
+        sprintf(imeDatoteke, "%s%s%s%s", reportFolder, "nov_pro_", datum, ".txt");
+        break;
     default:
         break;
     }
@@ -480,20 +483,48 @@ SIGNAL azurirajMaticnuPremaTransakcionoj() {
     fclose(sumTrans);
 
     FILE* izvPromena = fopen(vratiPutanjuDatoteke(IZVPROMENA), "wb");
-    if (izvPromena == NULL) return ERR;
-    for (int i = 0; i < brLinMat; i++)
+    FILE* izvNepKol = fopen(vratiPutanjuDatoteke(ERR_KOL), "w");
+    FILE* izvNovPro = fopen(vratiPutanjuDatoteke(NOV_PRO), "w");
+    FILE* izvNepPro = fopen(vratiPutanjuDatoteke(ERR_PRO), "w");
+
+
+    if (izvPromena == NULL || izvNepKol == NULL || izvNovPro == NULL || izvNepPro == NULL) return ERR;
+
+    for (int j = 0; j < brLinSumTrans; j++)
     {
-        for (int j = 0; j < brLinSumTrans; j++) {
+        bool postoji = false; //nepostojeci proizvod
+        for (int i = 0; i < brLinMat; i++) {
             if (proizvodi[i].Id == transakcije[j].Id) {
-                unsigned int staraKolicina = proizvodi[i].Kolicina;
-                proizvodi[i].Kolicina += transakcije[j].Promena * transakcije[j].Kolicina;
-                fprintf(izvPromena, "%-9d\t%-9d\t%-15s\t%-5s\t%-9d\t%-9d\n", proizvodi[i].Id, staraKolicina, proizvodi[i].Naziv, transakcije[j].Promena == ULAZ ? "+" : "-", transakcije[j].Kolicina, proizvodi[i].Kolicina);
+                postoji = true;
+                //nov proizvod
+                if (strcmp(proizvodi[i].Naziv, "-") == 0) {
+                    strcpy(proizvodi[i].Naziv, vratiImeNovogProizvoda(proizvodi[i].Id));
+                    proizvodi[i].Kolicina += transakcije[j].Promena * transakcije[j].Kolicina;
+                    fprintf(izvNovPro, "%-9d\t%-15s\t%-9d\n", proizvodi[i].Id, proizvodi[i].Naziv, proizvodi[i].Kolicina);
+                }
+                //nepostojeca kolicina
+                else if (transakcije[j].Promena == IZLAZ && proizvodi[i].Kolicina < transakcije[j].Kolicina) {
+                    fprintf(izvNepKol, "%-9d\t%-9d\t%-15s\t%-5s\t%-9d\t%-32s\n", proizvodi[i].Id, proizvodi[i].Kolicina, proizvodi[i].Naziv, "-", transakcije[j].Kolicina, "Nepostojeca kolicina proizvoda");
+                }
+                else {
+                    unsigned int staraKolicina = proizvodi[i].Kolicina;
+                    proizvodi[i].Kolicina += transakcije[j].Promena * transakcije[j].Kolicina;
+                    fprintf(izvPromena, "%-9d\t%-9d\t%-15s\t%-5s\t%-9d\t%-9d\n", proizvodi[i].Id, staraKolicina, proizvodi[i].Naziv, transakcije[j].Promena == ULAZ ? "+" : "-", transakcije[j].Kolicina, proizvodi[i].Kolicina);
+                }
                 break;
             }
         }
+        //nepostojeci proizvod
+        if (!postoji) {
+            fprintf(izvNepPro, "%-9d\t%-9s\t%-15s\t%-5s\t%-9d\t%-24s\n", transakcije[j].Id, "X", "X", "-", transakcije[j].Kolicina, "Nepostojeci proizvod.");
+        }
     }
 
+    
     fclose(izvPromena);
+    fclose(izvNepKol);
+    fclose(izvNovPro);
+    fclose(izvNepPro);
 
     //upis promena nazad u maticnu
     maticna = fopen(maticnaDatoteka, "wb");
@@ -511,4 +542,75 @@ void prikaziIzvestajPromena() {
     printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-9s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "kolicina");
     ispisiDatoteku(vratiPutanjuDatoteke(IZVPROMENA));
     printf("\n- - - - - - - - - - - - - - -  KRAJ IZVESTAJA  - - - - - - - - - - - - - - - - -\n");
+}
+
+SIGNAL dodajNoveProizvode() {
+    FILE* sumTrans = fopen(vratiPutanjuDatoteke(SUMTRANS), "rb");
+    FILE* maticna = fopen(maticnaDatoteka, "rb");
+    if (maticna == NULL || sumTrans == NULL) {
+        return ERR;
+    }
+    fseek(maticna, 0, SEEK_END);
+    long datotekaVel = ftell(maticna);
+    rewind(maticna);
+    int brLinMat = datotekaVel / sizeof(PROIZVOD);
+    PROIZVOD* proizvodi = (PROIZVOD*)malloc(brLinMat * sizeof(PROIZVOD));
+    fread(proizvodi, sizeof(PROIZVOD), brLinMat, maticna);
+    fclose(maticna);
+
+    fseek(sumTrans, 0, SEEK_END);
+    datotekaVel = ftell(sumTrans);
+    rewind(sumTrans);
+    int brLinSumTrans = datotekaVel / sizeof(TRANSAKCIJA);
+    TRANSAKCIJA* transakcije = (TRANSAKCIJA*)malloc(brLinMat * sizeof(TRANSAKCIJA));
+    fread(transakcije, sizeof(TRANSAKCIJA), brLinSumTrans, sumTrans);
+    fclose(sumTrans);
+
+    for (int i = 0; i < brLinSumTrans; i++)
+    {
+        if (transakcije[i].Promena == IZLAZ) continue;
+        bool pronadjen = false;
+        for (int j = 0; j < brLinMat; j++)
+        {
+            if (transakcije[i].Id == proizvodi[j].Id) {
+                pronadjen = true;
+                break;
+            }
+        }
+        if (!pronadjen) {
+            PROIZVOD pr = { transakcije[i].Id, "-", 0 };
+            SIGNAL s = dodajNoviRedMaticna(pr);
+            if (s != OK) return s;
+        }
+    }
+    return sortirajMaticnuDatoteku();
+}
+
+const char* vratiImeNovogProizvoda(unsigned int id) {
+    char* ime = malloc(sizeof(char) * MAXNAMELENGTH);
+    snprintf(ime, MAXNAMELENGTH, "Pro_%d", id);
+    return ime;
+}
+
+void prikaziIzvestajGreskaKolicina() {
+    printf("\n- - - - - - - - - - - - - - - - - IZVESTAJ O NEPOSTOJECOJ KOLICINI - - - - - - - - - - - - - - - - - \n");
+    printf("%-33s\t\t%-14s\t\t%-9s\n", "Proizvod", "Promena", "Greska");
+    printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-32s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "");
+    ispisiDatoteku(vratiPutanjuDatoteke(ERR_KOL));
+    printf("\n- - - - - - - - - - - - - - - - - - - - KRAJ IZVESTAJA - - - - - - - - - - - - - - - - - - - - - - - -\n");
+}
+
+void prikaziIzvestajNovProizvod() {
+    printf("\n- - - IZVESTAJ O NOVIM PROIZVODIMA - - -\n");
+    printf("%-9s\t%-15s\t%-9s\n", "Id", "Naziv", "Kolicina");
+    ispisiDatoteku(vratiPutanjuDatoteke(NOV_PRO));
+    printf("\n- - - -  KRAJ IZVESTAJA  - - - - - - - -\n");
+}
+
+void prikaziIzvestajGreskaProizvod() {
+    printf("\n- - - - - - - - - - - - - - - - - IZVESTAJ O NEPOSTOJECEM PROIZVODU - - - - - - - - - - - - - - - - - -\n");
+    printf("%-33s\t\t%-14s\t\t%-23s\n", "Proizvod", "Promena", "Greska");
+    printf("%-9s\t%-9s\t%-15s\t%-5s\t%-9s\t%-23s\n", "Id", "Kolicina", "Naziv", "Tip", "Kolicina", "");
+    ispisiDatoteku(vratiPutanjuDatoteke(ERR_PRO));
+    printf("\n- - - - - - - - - - - - - - - - - - - - KRAJ IZVESTAJA - - - - - - - - - - - - - - - - - - - - - - - -\n");
 }

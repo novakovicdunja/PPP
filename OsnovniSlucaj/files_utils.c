@@ -49,6 +49,9 @@ const char* vratiPutanjuDatoteke(TIPDATOTEKE tipDatoteke) {
     case ERR_PRO:
         sprintf(imeDatoteke, "%s%s%s%s", errorFolder, "err_pro_", datum, ".txt");
         break;
+    case NOV_PRO:
+        sprintf(imeDatoteke, "%s%s%s%s", reportFolder, "nov_pro_", datum, ".txt");
+        break;
     default:
         break;
     }

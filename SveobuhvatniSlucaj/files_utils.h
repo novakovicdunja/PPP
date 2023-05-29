@@ -75,6 +75,17 @@ SIGNAL azurirajMaticnuPremaTransakcionoj();
 
 void prikaziIzvestajPromena();
 
+void prikaziIzvestajGreskaKolicina();
+
+void prikaziIzvestajNovProizvod();
+
+void prikaziIzvestajGreskaProizvod();
+
+SIGNAL dodajNoveProizvode();
+
+const char* vratiImeNovogProizvoda(unsigned int id);
+
+
 
 
 #endif

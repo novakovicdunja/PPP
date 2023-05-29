@@ -215,10 +215,15 @@ SIGNAL azurirajMaticnuDatoteku() {
     }
     SIGNAL s = sumirajTransakcije();
     if (s != OK) return s;
+    s = dodajNoveProizvode();
+    if (s != OK) return s;
     s = azurirajMaticnuPremaTransakcionoj();
     if (s != OK) return s;
     s = arhivirajMaticnu();
     if (s != OK) return s;
     prikaziIzvestajPromena();
+    prikaziIzvestajNovProizvod();
+    prikaziIzvestajGreskaKolicina();
+    prikaziIzvestajGreskaProizvod();
     return s;
 }
