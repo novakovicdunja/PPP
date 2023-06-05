@@ -2,7 +2,7 @@
 
 #ifndef DEFS_H
 #define DEFS_H
-
+#define MBS 10
 #define MAXNLENGTH 9
 #define MAXNAMELENGTH 15
 #define MAX_BUFFER_SIZE 1024
@@ -58,4 +58,12 @@ typedef struct returnMessage {
 	const char* message;
 } RETURNMESSAGE;
 
+typedef SIGNAL FUNKCIJA(void);
+typedef FUNKCIJA* NAREDBA;
+typedef struct {
+	int br_stavki;
+	char* naslov;
+	char* tekst;
+	NAREDBA naredba[MBS];
+} MENI;
 #endif
