@@ -3,6 +3,7 @@
 #include "misc.h"
 #include "use_cases.h"
 #include "help_utils.h"
+#include "menu_utils.h"
 #include "adts.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -82,7 +83,8 @@ int main() {
     //prikaziSveProizvode();
     //kreirajNovuMaticnuDatoteku();
     //kreirajNovuTransakcionuDatoteku();
-    prikaziSveProizvode();
+    //prikaziSveProizvode();
+    while (izvrsi(glavni_meni) != END);
     return 0;
 }
 
