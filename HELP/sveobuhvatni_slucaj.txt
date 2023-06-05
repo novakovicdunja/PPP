@@ -1,3 +1,4 @@
+
 Azurira se proizvod u maticnoj datoteci, ali se uzimaju u obzir svi moguci (prethodno razmatrani) slucajevi. Scenario sveobuhvatnog slucaja:
 (a) D.1. + D.3. = I.1.
 (b) D.1. + D.4. = I.1.
@@ -11,3 +12,80 @@ Verbalni opis scenarija:
 (v) izdata kolicina proizvoda nije manja od trenutno raspolozive kolicine (ili: izdata kolicina proizvoda je veca od trenutno raspolozive kolicine), sto je greska; zato se operacija odbija, a poruka o neuspesnom azuriranju i razlogu nastale greske se upisuje u odgovarajucu datoteku,
 (g) primljena je kolicina proizvoda koji se ne nalazi u maticnoj datoteci, pa se zato u maticnu datoteku dodaje nov proizvod sa primljenom kolicinom, a poruka o uspesnom azuriranju i nastaloj promeni se upisuje u odgovarajucu datoteku,
 (d) izdaje se proizvod koji se ne nalazi u maticnoj datoteci, sto je greska; zato se operacija odbija, a poruka o neuspesnom azuriranju i razlogu nastale greske se upisuje u odgovarajucu datoteku.
+
+
+maticna.dat:
+Id | Naziv  | Kolicina
+======================
+20 | Pro_20 | 100
+30 | Pro_30 | 150
+40 | Pro_40 | 200
+50 | Pro_50 | 250
+60 | Pro_60 | 300
+70 | Pro_70 | 350
+80 | Pro_80 | 400
+90 | Pro_90 | 450
+
+transakciona.dat:
+Id | Promena | Kolicina | Comment
+================================
+20 | ULAZ    | 50       |
+70 | IZLAZ   | 50       | Osnovni slucaj
+90 | IZLAZ   | 50       |________________________________
+50 | IZLAZ   | 800      | Nepostojeca kolicina proizvoda
+60 | IZLAZ   | 800      |________________________________
+35 | ULAZ    | 150      | Nov proizvod
+15 | ULAZ    | 150      |________________________________
+22 | IZLAZ   | 175      | Nepostojeci proizvod
+92 | IZLAZ   | 175      |________________________________
+20 | ULAZ    | 50       |
+70 | IZLAZ   | 50       | Osnovni slucaj
+90 | ULAZ    | 50       |________________________________
+
+tran_210429:
+Id | Promena | Kolicina
+=======================
+15 | ULAZ    | 150
+20 | ULAZ    | 100
+22 | IZLAZ   | 175
+35 | ULAZ    | 150
+50 | IZLAZ   | 800
+60 | IZLAZ   | 800
+70 | IZLAZ   | 100
+90 | ULAZ    | 0
+92 | IZLAZ   | 175
+
+nova maticna.dat:
+Id | Naziv  | Kolicina
+======================
+15 | Pro_15 | 150
+20 | Pro_20 | 200
+30 | Pro_30 | 150
+35 | Pro_35 | 150
+40 | Pro_40 | 200
+50 | Pro_50 | 250
+60 | Pro_60 | 300
+70 | Pro_70 | 250
+80 | Pro_80 | 400
+90 | Pro_90 | 450
+
+izvestaj o promenama:
+20 100 Pro_20 + 100 200
+70 350 Pro_70 + 100 250
+90 450 Pro_90 - 0 450
+
+izvestaj o greskama:
+22 X X - 175 Nepostojeci proizvod.
+92 X X - 175 Nepostojeci proizvod.
+
+izvestaj o novim proizvodima:
+Id | Proizvod | Kolicina
+========================
+15 | Pro_15   | 150
+35 | Pro_35   | 150
+
+izvestaj o greskama:
+50 250 Pro_50 - 800 Nepostojeca kolicina proizvoda.
+60 300 Pro_60 - 800 Nepostojeca kolicina proizvoda.
+
+

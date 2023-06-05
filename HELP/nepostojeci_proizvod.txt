@@ -1,3 +1,4 @@
+
 	Azurira se proizvod koji postoji u maticnoj datoteci, ali se uzima u obzir da se moze desiti izdavanje kolicine nepostojec eg proizvoda. Scenario slucaja:
 (a) D.1. + D.3. = I.1.
 (b) D.1. + D.4. = I.1.
@@ -10,3 +11,64 @@ Verbalni opis scenarija:
 
 Ocigledno je da se ovaj slucaj moze opisati na sledeci nacin:
 Slucaj #1 + izdavanje kolicine nepostojec eg proizvoda
+
+Demo podaci:
+
+maticna.dat
+Id | Naziv  | Kolicina
+======================
+20 | Pro_20 | 100
+30 | Pro_30 | 150
+40 | Pro_40 | 200
+50 | Pro_50 | 250
+60 | Pro_60 | 300
+70 | Pro_70 | 350
+80 | Pro_80 | 400
+90 | Pro_90 | 450
+
+transakciona.dat:
+Id | Promena | Kolicina
+=======================
+30 | ULAZ    | 100
+92 | IZLAZ   | 40
+30 | IZLAZ   | 20
+23 | IZLAZ   | 40
+50 | ULAZ    | 20
+12 | IZLAZ   | 40
+22 | IZLAZ   | 20
+22 | IZLAZ   | 20
+
+tran_210429.dat:
+Id | Promena | Kolicina
+=======================
+12 | IZLAZ   | 40
+22 | IZLAZ   | 40
+23 | IZLAZ   | 40
+30 | ULAZ    | 80
+50 | ULAZ    | 20
+92 | IZLAZ   | 40
+
+nova maticna.dat:
+Id | Naziv  | Kolicina
+======================
+20 | Pro_20 | 100
+30 | Pro_30 | 230
+40 | Pro_40 | 200
+50 | Pro_50 | 270
+60 | Pro_60 | 300
+70 | Pro_70 | 350
+80 | Pro_80 | 400
+90 | Pro_90 | 450
+
+
+izvestaj o promenama:
+30 150 Pro_30 + 80 230
+50 250 Pro_50 + 20 270
+
+izvstaj o greskama:
+12 X X - 40 Nepostojeci proizvod.
+22 X X - 40 Nepostojeci proizvod.
+23 X X - 40 Nepostojeci proizvod.
+92 X X - 40 Nepostojeci proizvod.
+
+

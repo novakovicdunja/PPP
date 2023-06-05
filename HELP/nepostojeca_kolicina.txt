@@ -1,3 +1,4 @@
+
 Azurira se proizvod koji postoji u maticnoj datoteci, ali se uzima u obzir da se moze desiti izdavanje nepostojece kolicine. Scenario slucaja:
 (a) D.1. + D.3. = I.1.
 (b) D.1. + D.4. = I.1.
@@ -38,4 +39,44 @@ Id | Promena | Kolicina
 60 | IZLAZ   | 300
 40 | ULAZ    | 150
 50 | IZLAZ   | 200
+
+
+
+
+tran_210429.dat:
+Id | Promena | Kolicina
+=======================
+20 | IZLAZ   | 800
+30 | ULAZ    | 50
+40 | ULAZ    | 50
+50 | IZLAZ   | 800
+60 | IZLAZ   | 800
+70 | IZLAZ   | 200
+80 | ULAZ    | 50
+90 | ULAZ    | 0
+
+nova maticna.dat:
+Id | Proizvod | Kolicina
+========================
+20 | Pro_20   | 100
+30 | Pro_30   | 200
+40 | Pro_40   | 250
+50 | Pro_50   | 250
+60 | Pro_60   | 300
+70 | Pro_70   | 150
+80 | Pro_80   | 450
+90 | Pro_90   | 450
+
+izvestaj o promenama:
+30 150 Pro_30 + 50 200
+40 200 Pro_40 + 50 250
+70 350 Pro_70 - 200 150
+80 400 Pro_80 + 50 450
+90 450 Pro_90 + 0 450
+
+izvestaj o greskama:
+20 100 Pro_20 - 800 Nepostojeca kolicina proizvoda.
+50 250 Pro_50 - 800 Nepostojeca kolicina proizvoda.
+60 300 Pro_60 - 800 Nepostojeca kolicina proizvoda.
+
 

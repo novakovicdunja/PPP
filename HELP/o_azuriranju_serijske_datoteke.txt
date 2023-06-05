@@ -1,21 +1,25 @@
+
 Neophodno je resiti problem azuriranja serijske datoteke. Date su dve datoteke:
 maticna datoteka, koja sadrzi podatke o proizvodima (identifikator, naziv i kolicina) i
 transakciona datoteka, koja sadrzi podatke o nastalim promenama nad proizvodima.
 Maticna datoteka je uredjena (sortirana) po identifikatoru proizvoda, u rastucem redosledu (sortirana redna datoteka). U transakcionu datoteku se hronoloski upisuju promene obavljene (redna datoteka) nad proizvodima: ULAZ znaci primanje novih proizvoda (povecanje kolicine), a IZLAZ znaci izdavanje postojećih proizvoda (smanjenje kolicine). Ova datoteka nije uredjena. Kada se zavrsi sa upisom promena u transakcionu datoteku (recimo na kraju dana), kreira se nova transakciona datoteka (datoteka dnevnih promena) koja sadrzi sumarne podatke o nastalim promenama. Na primer, za proizvod Id = 40 su se u toku dana desile sledece promene: ULAZ 20, IZLAZ 30, ULAZ 40, IZLAZ 50. U sumarnoj transakcionoj datoteci (datoteci dnevnih promena; krace: datoteci promena) naci ce se samo jedan slog za proizvod Id = 40: IZLAZ 20. Na isti nacin ce se kreirati po jedan slog za sve proizvode za koje su se desile promene u jednom danu. Datoteka promena je uredjena po identifikatoru proizvoda, kao i maticna datoteka (sortirana redna datoteka).
 
 Sada se moze pristupiti azuriranju maticne datoteke, koje se obavlja dnevno. Moguci su sledeci dogadjaji:
-D1 Pokusava se azuriranje proizvoda koji postoji u maticnoj datoteci,
-D2 Pokusava se azuriranje proizvoda koji nepostoji u maticnoj datoteci,
-D3Pokusava se povecanje kolicine proizvoda,
-D4Pokusava se smanjenje kolicine proizvoda,
+
+D1	Pokusava se azuriranje proizvoda koji postoji u maticnoj datoteci,
+D2	Pokusava se azuriranje proizvoda koji nepostoji u maticnoj datoteci,
+D3	Pokusava se povecanje kolicine proizvoda,
+D4	Pokusava se smanjenje kolicine proizvoda,
 koji mogu da imaju sledece ishode:
-I1 Uspesan pokusaj azuriranja: proizvod se azurira, a poruka o nastaloj promeni se upisuje u odgovarajucu datoteku,
-I2 Neuspesan pokusaj azuriranja: prijavljuje se greska, a poruka o razlogu nastale greske se upisuje u odgovarajucu datoteku,
+
+I1	Uspesan pokusaj azuriranja: proizvod se azurira, a poruka o nastaloj promeni se upisuje u odgovarajucu datoteku,
+I2	Neuspesan pokusaj azuriranja: prijavljuje se greska, a poruka o razlogu nastale greske se upisuje u odgovarajucu datoteku,
 
 Na osnovu prethodnog, uocavamo sledece slucajeve azuriranja:
 
     Osnovni slucaj
-    Nepostojeca kolicina (izdavanje nepostojeće kolicine postojećeg proizvoda)
-    Nov proizvod (prijem kolicine nepostojećeg proizvoda)
-    Nepostojeci proizvod (izdavanje kolicine nepostojećeg proizvoda)
+    Nepostojeca kolicina (izdavanje nepostojece kolicine postojeceg proizvoda)
+    Nov proizvod (prijem kolicine nepostojeceg proizvoda)
+    Nepostojeci proizvod (izdavanje kolicine nepostojeceg proizvoda)
     Sveobuhvatni slucaj
+
